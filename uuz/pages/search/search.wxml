@@ -1,0 +1,96 @@
+<view class="page">
+  <view class="search-header">
+    <view class="search-bar">
+      <text class="search-icon">🔍</text>
+      <input 
+        class="search-input" 
+        placeholder="搜索新鲜好物" 
+        placeholder-class="search-placeholder"
+        value="{{keyword}}"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+        focus="{{autoFocus}}"
+      />
+      <text class="clear-btn" wx:if="{{keyword}}" bindtap="clearKeyword">✕</text>
+    </view>
+    <text class="cancel-btn" bindtap="goBack">取消</text>
+  </view>
+
+  <view class="search-content" wx:if="{{!hasSearched}}">
+    <view class="history-section" wx:if="{{historyList.length > 0}}">
+      <view class="section-header">
+        <text class="section-title">搜索历史</text>
+        <text class="clear-history" bindtap="clearHistory">清空</text>
+      </view>
+      <view class="history-tags">
+        <view class="history-tag" wx:for="{{historyList}}" wx:key="index" bindtap="searchHistory" data-keyword="{{item}}">
+          {{item}}
+        </view>
+      </view>
+    </view>
+
+    <view class="hot-section">
+      <view class="section-header">
+        <text class="section-title">热门搜索</text>
+      </view>
+      <view class="hot-tags">
+        <view class="hot-tag" wx:for="{{hotKeywords}}" wx:key="index" bindtap="searchHistory" data-keyword="{{item}}">
+          <text class="hot-index">{{index + 1}}</text>
+          <text class="hot-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="search-result" wx:if="{{hasSearched}}">
+    <view class="result-header">
+      <text class="result-count">共{{productList.length}}个相关商品</text>
+      <view class="sort-tabs">
+        <view class="sort-tab {{sortType === 'default' ? 'active' : ''}}" bindtap="changeSort" data-type="default">
+          综合
+        </view>
+        <view class="sort-tab {{sortType === 'sales' ? 'active' : ''}}" bindtap="changeSort" data-type="sales">
+          销量
+        </view>
+        <view class="sort-tab {{sortType === 'price' ? 'active' : ''}}" bindtap="changeSort" data-type="price">
+          价格
+          <text class="sort-arrow">{{sortOrder === 'asc' ? '↑' : '↓'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <scroll-view scroll-y="true" class="result-list" enhanced="true" show-scrollbar="false">
+      <view class="product-item" wx:for="{{productList}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+        <image src="{{item.image}}" class="product-image" mode="aspectFill"></image>
+        <view class="product-info">
+          <view class="product-name text-ellipsis-2">{{item.name}}</view>
+          <view class="product-tags">
+            <text class="tag tag-hot" wx:if="{{item.isHot}}">热卖</text>
+            <text class="tag tag-new" wx:if="{{item.isNew}}">新品</text>
+          </view>
+          <view class="product-bottom">
+            <view class="product-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.price}}</text>
+              <text class="original-price" wx:if="{{item.originalPrice}}">¥{{item.originalPrice}}</text>
+            </view>
+            <view class="product-sales">{{item.sales}}人付款</view>
+          </view>
+        </view>
+        <view class="add-cart-btn" catchtap="addCart" data-id="{{item.id}}">
+          <text>+</text>
+        </view>
+      </view>
+
+      <view class="empty" wx:if="{{productList.length === 0}}">
+        <text class="empty-icon">🔍</text>
+        <text class="empty-text">未找到相关商品</text>
+        <text class="empty-sub">换个关键词试试吧</text>
+      </view>
+
+      <view class="bottom-tip" wx:if="{{productList.length > 0}}">
+        <text>— 已加载全部商品 —</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

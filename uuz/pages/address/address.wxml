@@ -1,0 +1,44 @@
+<view class="page">
+  <scroll-view scroll-y="true" class="content">
+    <view class="address-list">
+      <view class="address-item" wx:for="{{addressList}}" wx:key="id">
+        <view class="address-info" bindtap="selectAddress" data-id="{{item.id}}">
+          <view class="address-top">
+            <text class="receiver">{{item.name}}</text>
+            <text class="phone">{{item.phone}}</text>
+            <text class="default-tag" wx:if="{{item.isDefault}}">默认</text>
+          </view>
+          <view class="address-detail text-ellipsis-2">{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
+        </view>
+        <view class="address-actions">
+          <view class="action-left" bindtap="setDefault" data-id="{{item.id}}">
+            <view class="checkbox {{item.isDefault ? 'checked' : ''}}">
+              <text wx:if="{{item.isDefault}}">✓</text>
+            </view>
+            <text class="action-text">默认地址</text>
+          </view>
+          <view class="action-right">
+            <view class="action-btn" bindtap="editAddress" data-id="{{item.id}}">
+              <text class="action-icon">✏️</text>
+              <text>编辑</text>
+            </view>
+            <view class="action-btn" bindtap="deleteAddress" data-id="{{item.id}}">
+              <text class="action-icon">🗑️</text>
+              <text>删除</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty" wx:if="{{addressList.length === 0}}">
+      <text class="empty-icon">📍</text>
+      <text class="empty-text">暂无收货地址</text>
+      <text class="empty-sub">添加收货地址，购物更方便</text>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-bar">
+    <button class="btn-add" bindtap="addAddress">+ 新增收货地址</button>
+  </view>
+</view>

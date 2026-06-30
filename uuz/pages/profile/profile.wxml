@@ -1,0 +1,75 @@
+<view class="page">
+  <view class="avatar-section">
+    <view class="avatar-row" bindtap="changeAvatar">
+      <text class="row-label">头像</text>
+      <view class="avatar-wrapper">
+        <image class="avatar" src="{{form.avatarUrl}}" wx:if="{{form.avatarUrl}}" mode="aspectFill"></image>
+        <view class="avatar-placeholder" wx:else>
+          <text>👤</text>
+        </view>
+        <text class="row-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-section">
+    <view class="form-item">
+      <text class="form-label">昵称</text>
+      <input 
+        class="form-input" 
+        placeholder="请输入昵称" 
+        placeholder-class="form-placeholder"
+        value="{{form.nickName}}"
+        bindinput="onInput"
+        data-field="nickName"
+        maxlength="20"
+      />
+    </view>
+    <view class="form-divider"></view>
+    
+    <view class="form-item" bindtap="chooseGender">
+      <text class="form-label">性别</text>
+      <view class="form-value">
+        <text>{{genderText}}</text>
+        <text class="row-arrow">›</text>
+      </view>
+    </view>
+    <view class="form-divider"></view>
+    
+    <view class="form-item">
+      <text class="form-label">手机号</text>
+      <view class="form-value form-value-disabled">
+        <text>{{form.phone || '未绑定'}}</text>
+      </view>
+    </view>
+    <view class="form-divider"></view>
+    
+    <view class="form-item">
+      <text class="form-label">生日</text>
+      <picker mode="date" value="{{form.birthday}}" bindchange="onBirthdayChange">
+        <view class="form-value">
+          <text>{{form.birthday || '请选择生日'}}</text>
+          <text class="row-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+    <view class="form-divider"></view>
+    
+    <view class="form-item">
+      <text class="form-label">个性签名</text>
+      <input 
+        class="form-input" 
+        placeholder="介绍一下自己吧" 
+        placeholder-class="form-placeholder"
+        value="{{form.signature}}"
+        bindinput="onInput"
+        data-field="signature"
+        maxlength="50"
+      />
+    </view>
+  </view>
+
+  <view class="save-section">
+    <button class="btn-save" bindtap="save">保存</button>
+  </view>
+</view>

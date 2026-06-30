@@ -1,0 +1,66 @@
+<view class="page">
+  <view class="search-bar" bindtap="goSearch">
+    <view class="search-input">
+      <text class="iconfont">🔍</text>
+      <text class="search-placeholder">搜索商品</text>
+    </view>
+  </view>
+
+  <view class="category-container">
+    <scroll-view scroll-y="true" class="category-left">
+      <view 
+        class="category-item {{currentCategoryId === item.id ? 'active' : ''}}" 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        bindtap="selectCategory"
+        data-id="{{item.id}}"
+      >
+        <view class="item-icon">{{item.icon}}</view>
+        <text class="item-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <scroll-view scroll-y="true" class="category-right" enhanced="true" show-scrollbar="false">
+      <view class="right-header">
+        <image src="{{currentCategory.image}}" class="header-image" mode="aspectFill"></image>
+        <view class="header-title">
+          <text class="title-main">{{currentCategory.name}}</text>
+          <text class="title-sub">精选好物 新鲜直达</text>
+        </view>
+      </view>
+
+      <view class="product-list">
+        <view class="product-item" wx:for="{{productList}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+          <image src="{{item.image}}" class="product-image" mode="aspectFill"></image>
+          <view class="product-info">
+            <view class="product-name text-ellipsis-2">{{item.name}}</view>
+            <view class="product-tags">
+              <text class="tag tag-hot" wx:if="{{item.isHot}}">热卖</text>
+              <text class="tag tag-new" wx:if="{{item.isNew}}">新品</text>
+              <text class="tag tag-sale" wx:if="{{item.originalPrice > item.price}}">特惠</text>
+            </view>
+            <view class="product-bottom">
+              <view class="product-price">
+                <text class="price-symbol">¥</text>
+                <text class="price-value">{{item.price}}</text>
+                <text class="original-price" wx:if="{{item.originalPrice}}">¥{{item.originalPrice}}</text>
+              </view>
+              <view class="product-sales">{{item.sales}}人付款</view>
+            </view>
+          </view>
+          <view class="add-cart-btn" catchtap="addCart" data-id="{{item.id}}">
+            <text>+</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="empty" wx:if="{{productList.length === 0}}">
+        <text>暂无商品</text>
+      </view>
+
+      <view class="bottom-tip" wx:if="{{productList.length > 0}}">
+        <text>— 已加载全部商品 —</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

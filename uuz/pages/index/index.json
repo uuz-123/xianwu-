@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "鲜物",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

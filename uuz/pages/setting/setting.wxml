@@ -1,0 +1,93 @@
+<view class="page">
+  <view class="user-section" bindtap="goProfile">
+    <image class="avatar" src="{{userInfo.avatarUrl}}" wx:if="{{userInfo && userInfo.avatarUrl}}" mode="aspectFill"></image>
+    <view class="avatar-placeholder" wx:else>
+      <text>👤</text>
+    </view>
+    <view class="user-info">
+      <view class="nickname">{{userInfo.nickName || '未登录'}}</view>
+      <view class="user-desc">点击修改个人信息</view>
+    </view>
+    <text class="arrow">›</text>
+  </view>
+
+  <view class="section">
+    <view class="section-title">账号设置</view>
+    <view class="menu-list">
+      <view class="menu-item" bindtap="goProfile">
+        <view class="menu-left">
+          <text class="menu-icon">👤</text>
+          <text class="menu-name">个人信息</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="changePhone">
+        <view class="menu-left">
+          <text class="menu-icon">📱</text>
+          <text class="menu-name">绑定手机</text>
+        </view>
+        <view class="menu-right">
+          <text class="menu-value">********</text>
+          <text class="menu-arrow">›</text>
+        </view>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="changePassword">
+        <view class="menu-left">
+          <text class="menu-icon">🔒</text>
+          <text class="menu-name">修改密码</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">通用设置</view>
+    <view class="menu-list">
+      <view class="menu-item">
+        <view class="menu-left">
+          <text class="menu-icon">🔔</text>
+          <text class="menu-name">消息通知</text>
+        </view>
+        <switch checked="{{notifyOn}}" color="#ff6b35" bindchange="toggleNotify"/>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="clearCache">
+        <view class="menu-left">
+          <text class="menu-icon">🗑️</text>
+          <text class="menu-name">清除缓存</text>
+        </view>
+        <view class="menu-right">
+          <text class="menu-value">{{cacheSize}}</text>
+          <text class="menu-arrow">›</text>
+        </view>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="aboutUs">
+        <view class="menu-left">
+          <text class="menu-icon">ℹ️</text>
+          <text class="menu-name">关于我们</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-divider"></view>
+      <view class="menu-item" bindtap="service">
+        <view class="menu-left">
+          <text class="menu-icon">💬</text>
+          <text class="menu-name">联系客服</text>
+        </view>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="logout-section" wx:if="{{userInfo}}">
+    <button class="btn-logout" bindtap="logout">退出登录</button>
+  </view>
+
+  <view class="version-info">
+    <text>鲜物 v1.0.0</text>
+  </view>
+</view>

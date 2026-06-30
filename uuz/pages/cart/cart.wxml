@@ -1,0 +1,85 @@
+<view class="page">
+  <view class="header">
+    <view class="header-title">购物车</view>
+    <view class="header-edit" bindtap="toggleEdit">{{isEdit ? '完成' : '管理'}}</view>
+  </view>
+
+  <scroll-view scroll-y="true" class="content" wx:if="{{cartList.length > 0}}">
+    <view class="cart-list">
+      <view class="cart-item" wx:for="{{cartList}}" wx:key="specKey">
+        <view class="item-checkbox" bindtap="toggleSelect" data-id="{{item.id}}" data-spec="{{item.specKey}}">
+          <view class="checkbox {{item.selected ? 'checked' : ''}}">
+            <text wx:if="{{item.selected}}">✓</text>
+          </view>
+        </view>
+        <image src="{{item.image}}" class="item-image" mode="aspectFill" bindtap="goDetail" data-id="{{item.id}}"></image>
+        <view class="item-info" bindtap="goDetail" data-id="{{item.id}}">
+          <view class="item-name text-ellipsis-2">{{item.name}}</view>
+          <view class="item-spec" wx:if="{{item.spec}}">{{item.spec.name}}</view>
+          <view class="item-bottom">
+            <view class="item-price">
+              <text class="price-symbol">¥</text>
+              <text class="price-value">{{item.price}}</text>
+            </view>
+            <view class="item-quantity">
+              <view class="qty-btn minus" catchtap="decreaseQty" data-id="{{item.id}}" data-spec="{{item.specKey}}">-</view>
+              <text class="qty-value">{{item.quantity}}</text>
+              <view class="qty-btn plus" catchtap="increaseQty" data-id="{{item.id}}" data-spec="{{item.specKey}}">+</view>
+            </view>
+          </view>
+        </view>
+        <view class="item-delete" wx:if="{{isEdit}}" catchtap="deleteItem" data-id="{{item.id}}" data-spec="{{item.specKey}}">
+          <text>删除</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="recommend-section">
+      <view class="section-title">
+        <text>猜你喜欢</text>
+      </view>
+      <view class="recommend-list">
+        <view class="recommend-item" wx:for="{{recommendProducts}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+          <image src="{{item.image}}" class="recommend-image" mode="aspectFill"></image>
+          <view class="recommend-name text-ellipsis-2">{{item.name}}</view>
+          <view class="recommend-price">
+            <text class="price-symbol">¥</text>
+            <text class="price-value">{{item.price}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom-space"></view>
+  </scroll-view>
+
+  <view class="empty-cart" wx:if="{{cartList.length === 0}}">
+    <view class="empty-icon">🛒</view>
+    <view class="empty-text">购物车空空如也</view>
+    <view class="empty-sub">快去挑选新鲜好物吧</view>
+    <button class="btn-go-shopping" bindtap="goShopping">去逛逛</button>
+  </view>
+
+  <view class="bottom-bar" wx:if="{{cartList.length > 0}}">
+    <view class="bar-left">
+      <view class="select-all" bindtap="toggleSelectAll">
+        <view class="checkbox {{allSelected ? 'checked' : ''}}">
+          <text wx:if="{{allSelected}}">✓</text>
+        </view>
+        <text class="select-text">全选</text>
+      </view>
+    </view>
+    <view class="bar-center">
+      <view class="total-price">
+        <text class="total-label">合计：</text>
+        <text class="price-symbol">¥</text>
+        <text class="price-value">{{totalPrice}}</text>
+      </view>
+      <view class="total-count" wx:if="{{totalCount > 0}}">共{{totalCount}}件商品</view>
+    </view>
+    <view class="bar-right">
+      <button class="btn-settle" wx:if="{{!isEdit}}" bindtap="settle">结算({{totalCount}})</button>
+      <button class="btn-delete" wx:if="{{isEdit}}" bindtap="deleteSelected">删除所选</button>
+    </view>
+  </view>
+</view>
