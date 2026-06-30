@@ -84,7 +84,7 @@ git clone https://github.com/yourusername/xianwu-miniprogram.git
 // project.config.json
 {
   "appid": "touristappid",
-  "projectname": "xiaotuerxian",
+  "projectname": "xianwu",
   "compileType": "miniprogram",
   "libVersion": "2.19.4"
 }
@@ -127,4 +127,4 @@ git clone https://github.com/yourusername/xianwu-miniprogram.git
 
 ---
 
-<p align="center">Made with ❤️ for fresh food lovers</p>
+<p align="center">Made with ❤️ for fresh food lovers</p> 
