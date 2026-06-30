@@ -71,7 +71,7 @@ pages/
 1. 克隆本仓库到本地
 
 ```bash
-git clone https://github.com/yourusername/xianwu-miniprogram.git
+git clone https://github.com/uuz-123/xianwu-.git
 ```
 
 2. 使用微信开发者工具打开项目目录
